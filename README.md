@@ -42,3 +42,5 @@ It uses the information in that database file to output three text files:
   > For instance, if HA is the "independent" gene and CEBP&alpha; and CD34 are the "dependent" genes, then there will be two output files: cebpa_HA_values.txt and cd34_HA_values.txt.  The first file will contain the HA levels for all positively identified CEBP&alpha; cells, and the second will contain the HA levels for all positively identified CD34 cells.
 
 ## GeneralNeighborhoodAnalysis
+
+## Create Spatial Expression Magnitude Plot
