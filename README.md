@@ -2,7 +2,7 @@
 
 The concept of Impact Factor in the context of cell signaling attempts to integrate overlapping layers of local signals that influence a cell’s GRN into a simplified quantitative form. The radius at which a local signaling element influences the cell fate in the microenvironment is referred to here as a cell’s “neighborhood”. Neighborhood Impact Factor (NIF) is the quantitative assessment of a given signaling element within a certain neighborhood radius around a target cell.
 
-We have proposed three ways to define the NIF, which we have termed “Total Expression”, “Local Density”, and “Distance Adjusted”. However, the models of neighborhood expression should be tailored for the analysis of the system of interest, depending on a proposed or expected expression pattern.  Below are the presented Imapct Factor (IF) calculations:
+We have proposed three ways to define the NIF, which we have termed “Total Expression”, “Local Density”, and “Distance Adjusted”. However, the models of neighborhood expression should be tailored for the analysis of the system of interest, depending on a proposed or expected expression pattern.  Below are the presented Imapact Factor (IF) calculations:
 
 - **Total Expression Impact Factor**
 
