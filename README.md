@@ -36,7 +36,7 @@ This GOI is also referred to as the "independent" gene and the other genes (whic
 
 ## CellProfilerSummaryApp
 
-This java program is written to work with a database (\*.db) file that has been outtputted from a CellProfiler pipeline.  
+This java program is written to work with a database (\*.db) file that has been outtputted from a CellProfiler pipeline.  Several of the variables need to be edited and tailored to your specific system.  These variables have been highlighted with `TODO`'s in comment blocks within the code.
 It uses the information in that database file to output three text files:
 
 - **Summary File**
