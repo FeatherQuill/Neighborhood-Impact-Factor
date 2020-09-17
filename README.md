@@ -10,19 +10,23 @@ We have proposed three ways to define the NIF, which we have termed “Total Exp
 
   This method simply calculates the sum of the expression levels of all cells expressing a Gene of Interest (GOI) within the neighborhood by finding all the cells within the neighborhood radius and adding up their GOI expression levels as quantified by intensity. This expression level is then normalized to the gene expression of the cell for which the neighborhood is being analyzed.
   
-  ![method 1](images/m1-total-exp.png)
+  ![total expression NIF](images/m1-total-exp.png)
 
 - **Local Density Impact Factor**
 
   The Local Density method defines impact factor as:
 
   This method takes the sum of the expression of a given GOI within the neighborhood divided by all the cells in the neighborhood to produce an average expression per cell. This method can be useful to check if a density of nearby cells expressing a GOI, not just a threshold of local expression, is a key determining factor in driving the biological events associated with the cell neighborhood.
+  
+  ![local density NIF](images/m2-local-density.png)
 
 - **Distance Adjusted Impact Factor**
 
   The Distance Adjusted method defines impact factor as:
 
   This method quantifies the neighborhood with the assumption that the neighborhood cells expressing a GOI farther away from the cell of interest have reduced influence on that cell. Therefore, the distance away from the central cell of interest is inversely proportional to the impact of that cell on the NIF.
+
+  ![distance adjusted NIF](images/m4-distance-adj.png)
 
 The best NIF for representation of signaling effects within a given system should be iteratively optimized through modeling and experimentation to fit the experimental parameters of that system.
 
