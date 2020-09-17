@@ -26,6 +26,7 @@ The best NIF for representation of signaling effects within a given system shoul
 
 This GOI is also referred to as the "independent" gene and the other genes (which are used to determine what fate the cell has taken) are also referred to as the "dependent" genes.
 
+---
 
 ## CellProfilerSummaryApp
 
@@ -40,6 +41,8 @@ It uses the information in that database file to output three text files:
  
   Two more files will be output -- one for each of the "dependent" genes.  These files will contain the raw "independent" gene levels for every "dependent" gene of that type.  
   > For instance, if HA is the "independent" gene and CEBP&alpha; and CD34 are the "dependent" genes, then there will be two output files: cebpa_HA_values.txt and cd34_HA_values.txt.  The first file will contain the HA levels for all positively identified CEBP&alpha; cells, and the second will contain the HA levels for all positively identified CD34 cells.
+  
+---
 
 ## GeneralNeighborhoodAnalysis
 
