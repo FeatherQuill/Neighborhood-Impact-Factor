@@ -9,6 +9,8 @@ We have proposed three ways to define the NIF, which we have termed “Total Exp
   The impact factor of the Total Expression method is defined as:
 
   This method simply calculates the sum of the expression levels of all cells expressing a Gene of Interest (GOI) within the neighborhood by finding all the cells within the neighborhood radius and adding up their GOI expression levels as quantified by intensity. This expression level is then normalized to the gene expression of the cell for which the neighborhood is being analyzed.
+  
+  ![method 1](images/m1-total-exp.png)
 
 - **Local Density Impact Factor**
 
