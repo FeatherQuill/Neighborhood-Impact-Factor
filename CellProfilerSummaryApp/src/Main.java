@@ -24,9 +24,10 @@ public class Main {
 	private static String cell1ArrayOutputPath;
 	private static String cell2ArrayOutputPath;
 	
+	// These names must match those in the CellProfiler pipeline
 	private static String cell1Name = "ckHA"; //cd34
 	private static String cell2Name = "msHA"; //cebpa
-	//The cell type that is driving the change (HA, GATA6, etc.)
+	// This is the cell type that is driving the change (HA, GATA6, etc.)
 	private static String cell3Name = "GATA6";
 	
 	private static String cell3Intensity = "nuclei_math_normalized_"+cell3Name;
@@ -69,21 +70,28 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-//		String basePath = "C:/Users/shay_/Documents/ASU/thesis/Images for Analysis/Early Time Points/Day 3/PGP1 D3, T, GATA6, FOXA2, reimaged 11-11-16/cropped/standard_crop2/output/";
-//		String basePath = "C:/Users/shay_/Documents/ASU/thesis/Images for Analysis/thesis stainings/52 - PGP1 D6 - msSOX2, rbT, gtGATA6/cropped/standard_crop2/output/";
-//		String basePath = "C:/Users/shay_/Documents/ASU/thesis/Images for Analysis/Early Time Points/Day 3/PGP1 D3, T, GATA6, FOXA2, reimaged 11-11-16/cropped/standard_crop2/output/";
-//		String basePath = "C:/Users/shay_/Documents/ASU/thesis/Images for Analysis/CEBPa-CD34-HA-DAPI/cropped/standard_crop2/output/";
-		String basePath = "C:/Users/shay_/Dropbox (ASU)/GATA6 Expression Analysis/Cell Profiler Database Files/55 - PGP1-HA D3, ckHAg, msHAr, rbGATA6fr/";
+		//  This variable defines the base directory.
+		//  The database file (*.db) should exist in this directory in order for this probram to execute.
+		//  The output path can also be used in combination with this base directory to write out the
+		//  output files in the same parent directory.
+		//  Below is an example and then the actual variable you must override.
+//		String basePath = "C:/Users/shay_/Dropbox (ASU)/GATA6 Expression Analysis/Cell Profiler Database Files/55 - PGP1-HA D3, ckHAg, msHAr, rbGATA6fr/";
+		String basePath = "C:/Users/[username]/myfiles/";
 		
-		dbPath = basePath+"55 - PGP1-HA D3, ckHAg, msHAr, rbGATA6fr, subtract 1_1.db";
+		//  This variable must point to the database file
+// 		dbPath = basePath+"55 - PGP1-HA D3, ckHAg, msHAr, rbGATA6fr, subtract 1_1.db";
+		dbPath = basePath + "myDatabase.db";
 		System.out.println(dbPath);
-//		dbPath = basePath+"standard_crop2.db";
-		outputPath = basePath+"pgp1-ha-d3-ckHA-msHA-gata6-subtract-1_1-results.txt";
-//		outputPath = basePath+"pgp1-d14-cd34-cebpa-ha-results.txt";
 		
+		// This variable is where the output text file will be written
+// 		outputPath = basePath+"pgp1-ha-d3-ckHA-msHA-gata6-subtract-1_1-results.txt";
+		outputPath = basePath + output.txt;
+		
+		// THese are specific output files for comparisons of the two "independent" cell types
 		cell1ArrayOutputPath = basePath+cell1Name+"_"+cell3Name+"_values.txt";
 		cell2ArrayOutputPath = basePath+cell2Name+"_"+cell3Name+"_values.txt";
 
+		// This is needed to programmatically connect to the database, DO NOT CHANGE.
 		dbURL = "jdbc:sqlite:"+dbPath;
 		
 		
@@ -113,11 +121,9 @@ public class Main {
 		medianCell3ForCell1Cells = getMeanOrMedianCell3ValueForCellType(cell1Type, medianStr);
 		medianCell3ForCell2Cells = getMeanOrMedianCell3ValueForCellType(cell2Type, medianStr);
 		
-		//TODO calculate geometric mean for cell populations: exp(average(ln(data))
-		
 		//calculate p value for mean cell3 type (gata6) difference between cell1 and cell2
-//		double pValue = calculatePValue();
-//		System.out.println(pValue);
+		double pValue = calculatePValue();
+		System.out.println(pValue);
 		
 		//write out to a file
 		try {
@@ -129,29 +135,27 @@ public class Main {
 		
 			bw.close();
 			fw.close();
-//			//write out the array files to use in r for the t-tests
-//			FileWriter fw1 = new FileWriter(cell1ArrayOutputPath);
-//			BufferedWriter bw1 = new BufferedWriter(fw1);
-//			System.out.println("Writing "+cell1Name+" array file...");
-//			generateArrayTextFiles(bw1, cell1Type);
-//			
-//			FileWriter fw2 = new FileWriter(cell2ArrayOutputPath);
-//			BufferedWriter bw2 = new BufferedWriter(fw2);
-//			System.out.println("Writing "+cell2Name+" array file...");
-//			generateArrayTextFiles(bw2, cell2Type);
-//			
-//			bw1.close();
-//			fw1.close();
-//			bw2.close();
-//			fw2.close();
+			//write out the array files to use in r for the t-tests
+			FileWriter fw1 = new FileWriter(cell1ArrayOutputPath);
+			BufferedWriter bw1 = new BufferedWriter(fw1);
+			System.out.println("Writing "+cell1Name+" array file...");
+			generateArrayTextFiles(bw1, cell1Type);
+			
+			FileWriter fw2 = new FileWriter(cell2ArrayOutputPath);
+			BufferedWriter bw2 = new BufferedWriter(fw2);
+			System.out.println("Writing "+cell2Name+" array file...");
+			generateArrayTextFiles(bw2, cell2Type);
+			
+			bw1.close();
+			fw1.close();
+			bw2.close();
+			fw2.close();
 			
 			
 		} catch (IOException e1) {
 			System.err.println("Error writing file.");
 			e1.printStackTrace();
 		}
-		
-		
 		
 		//close connection
 		try {
@@ -236,9 +240,7 @@ public class Main {
 			
 			
 			while(rs.next()){
-//				System.out.println("here");
 				result = rs.getInt("count(*)");
-//				System.out.println(result);
 			}
 			
 		}catch(SQLException e){
@@ -267,7 +269,6 @@ public class Main {
 			
 			while(rs.next()){
 				result = rs.getDouble(meanOrMedian+"("+intensityType+")");
-//				System.out.println(result);
 			}
 			
 		}catch(SQLException e){
@@ -329,7 +330,6 @@ public class Main {
 			
 			while(rs.next()){
 				result = rs.getInt("count(*)");
-//				System.out.println(result);
 			}
 		}catch(SQLException e){
 			System.err.println(query);
@@ -360,7 +360,6 @@ public class Main {
 			
 			while(rs.next()){
 				result = rs.getInt("count(*)");
-//				System.out.println(result);
 			}
 		}catch(SQLException e){
 			System.err.println(query);
@@ -392,7 +391,6 @@ public class Main {
 			
 			while(rs.next()){
 				result = rs.getDouble(1);
-//				System.out.println(result);
 			}
 			
 		}catch(SQLException e){
@@ -461,7 +459,6 @@ public class Main {
 		engine.assign(a2, getAllCell3LevelsForCellType(cell2Type));
 		
 		REXP rexp = engine.eval("t.test("+a2+","+a1+", paired=FALSE)");
-//		System.out.println(rexp.getContent());
 		
 		RVector rvec = rexp.asVector();
 		String pString = rvec.get(2).toString();
@@ -469,12 +466,7 @@ public class Main {
 		//Take off beginning: "[REAL* (" and end: ")]"
 		pString = pString.substring(8, pString.length()-2);
 		
-		
-//		System.out.println(pString);
-		
 		result = Double.parseDouble(pString);
-		
-//		System.out.println(engine.eval("t.test("+a2+","+a1+", paired=FALSE)"));
 		
 		engine.end();
 		
@@ -484,7 +476,6 @@ public class Main {
 	
 	private static void generateReport(BufferedWriter bw) throws IOException{
 		//title
-		//TODO: let this be a variable the user can specify ahead of time
 		bw.write(cell1Name+"-"+cell2Name+"-"+cell3Name+" Normalized Image Results Summary");
 		bw.newLine();
 		bw.newLine();
