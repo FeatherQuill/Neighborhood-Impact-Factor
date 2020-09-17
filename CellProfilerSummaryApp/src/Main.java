@@ -24,10 +24,10 @@ public class Main {
 	private static String cell1ArrayOutputPath;
 	private static String cell2ArrayOutputPath;
 	
-	// These names must match those in the CellProfiler pipeline
+	//TODO: These names must match those in the CellProfiler pipeline
 	private static String cell1Name = "ckHA"; //cd34
 	private static String cell2Name = "msHA"; //cebpa
-	// This is the cell type that is driving the change (HA, GATA6, etc.)
+	//TODO: This is the cell type that is driving the change (HA, GATA6, etc.)
 	private static String cell3Name = "GATA6";
 	
 	private static String cell3Intensity = "nuclei_math_normalized_"+cell3Name;
@@ -70,7 +70,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		//  This variable defines the base directory.
+		//TODO:  This variable defines the base directory.
 		//  The database file (*.db) should exist in this directory in order for this probram to execute.
 		//  The output path can also be used in combination with this base directory to write out the
 		//  output files in the same parent directory.
@@ -78,16 +78,16 @@ public class Main {
 //		String basePath = "C:/Users/shay_/Dropbox (ASU)/GATA6 Expression Analysis/Cell Profiler Database Files/55 - PGP1-HA D3, ckHAg, msHAr, rbGATA6fr/";
 		String basePath = "C:/Users/[username]/myfiles/";
 		
-		//  This variable must point to the database file
+		//TODO:  This variable must point to the database file
 // 		dbPath = basePath+"55 - PGP1-HA D3, ckHAg, msHAr, rbGATA6fr, subtract 1_1.db";
 		dbPath = basePath + "myDatabase.db";
 		System.out.println(dbPath);
 		
-		// This variable is where the output text file will be written
+		//TODO: This variable is where the output text file will be written
 // 		outputPath = basePath+"pgp1-ha-d3-ckHA-msHA-gata6-subtract-1_1-results.txt";
 		outputPath = basePath + output.txt;
 		
-		// THese are specific output files for comparisons of the two "independent" cell types
+		// These are specific output files for comparisons of the two "independent" cell types
 		cell1ArrayOutputPath = basePath+cell1Name+"_"+cell3Name+"_values.txt";
 		cell2ArrayOutputPath = basePath+cell2Name+"_"+cell3Name+"_values.txt";
 
@@ -121,9 +121,6 @@ public class Main {
 		medianCell3ForCell1Cells = getMeanOrMedianCell3ValueForCellType(cell1Type, medianStr);
 		medianCell3ForCell2Cells = getMeanOrMedianCell3ValueForCellType(cell2Type, medianStr);
 		
-		//calculate p value for mean cell3 type (gata6) difference between cell1 and cell2
-		double pValue = calculatePValue();
-		System.out.println(pValue);
 		
 		//write out to a file
 		try {
@@ -558,10 +555,10 @@ public class Main {
 		bw.newLine();
 	}
 	
-//	private static void generateArrayTextFiles(BufferedWriter bw, String cellType) throws IOException{
-//		for(Double val : getAllCell3LevelsForCellType(cellType)){
-//			bw.write(val+"");
-//			bw.newLine();
-//		}
-//	}
+	private static void generateArrayTextFiles(BufferedWriter bw, String cellType) throws IOException{
+		for(Double val : getAllCell3LevelsForCellType(cellType)){
+			bw.write(val+"");
+			bw.newLine();
+		}
+	}
 }
